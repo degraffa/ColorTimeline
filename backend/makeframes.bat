@@ -1,10 +1,6 @@
-python .\iro-backend.py s6e01 movies/s6e01.mp4 20 1
-python .\iro-backend.py s6e02 movies/s6e02.mp4 20 1
-python .\iro-backend.py s6e03 movies/s6e03.mp4 20 1
-python .\iro-backend.py s6e04 movies/s6e04.mp4 20 1
-python .\iro-backend.py s6e05 movies/s6e05.mp4 20 1
-python .\iro-backend.py s6e06 movies/s6e06.mp4 20 1
-python .\iro-backend.py s6e07 movies/s6e07.mp4 20 1
-python .\iro-backend.py s6e08 movies/s6e08.mp4 20 1
-python .\iro-backend.py s6e09 movies/s6e09.mp4 20 1
-python .\iro-backend.py s6e10 movies/s6e10.mp4 20 1
+python .\iro-backend.py s8e01 movies/s8e03.mp4 20 1
+python .\iro-backend.py s8e02 movies/s8e02.mp4 20 1
+python .\iro-backend.py s8e03 movies/s8e03.mp4 20 1
+python .\iro-backend.py s8e04 movies/s8e04.mp4 20 1
+python .\iro-backend.py s8e05 movies/s8e05.mp4 20 1
+python .\iro-backend.py s8e06 movies/s8e06.mp4 20 1

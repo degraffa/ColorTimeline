@@ -105,8 +105,8 @@
         currentEpisode = currentSeason + "e10"
       }
       
-      // var bins = await d3.json(jsonPath + currentEpisode + ".json")
-      // loadGraph(bins, i)
+      var bins = await d3.json(jsonPath + currentEpisode + ".json")
+      loadGraph(bins, i)
     }
     document.getElementById("source").innerHTML = ""
   }

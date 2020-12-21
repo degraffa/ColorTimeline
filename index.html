@@ -80,7 +80,8 @@
   <script>
 
   const jsonPath = "backend/json/";
-  var currentSeason;
+  var currentSeason
+
   const seasonLengths = [10, 10, 10, 10, 10, 10, 7, 6]
 
   const queryString = window.location.search;
@@ -94,18 +95,18 @@
     if (document.getElementById("seasonSelector").value)
       currentSeason = document.getElementById("seasonSelector").value;
 
-    var seasonNumber = parseInt(currentSeason)
-    var bins = await d3.json(jsonPath + currentSeason + ".json")
-    for (let i = 1; i <= seasonLengths[i]; i++) {
+    var seasonNumber = parseInt(currentSeason.charAt(1))
+
+    for (let i = 1; i <= seasonLengths[seasonNumber]; i++) {
       var currentEpisode;
       if (i < 10) {
         currentEpisode = currentSeason + "e0" + i
       } else {
         currentEpisode = currentSeason + "e10"
       }
-
-      var bins = await d3.json(jsonPath + currentEpisode + ".json")
-      loadGraph(bins, i)
+      
+      // var bins = await d3.json(jsonPath + currentEpisode + ".json")
+      // loadGraph(bins, i)
     }
     document.getElementById("source").innerHTML = ""
   }

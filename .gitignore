@@ -1,3 +1,6 @@
 /backend/movies
 /backend/env
 /backend/.vscode
+
+./vscode
+/backend/makeframes.bat

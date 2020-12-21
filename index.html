@@ -159,7 +159,7 @@
 
     var seasonNumber = parseInt(currentSeason.charAt(1))
 
-    for (let i = 1; i <= seasonLengths[seasonNumber]; i++) {
+    for (let i = 1; i <= seasonLengths[seasonNumber-1]; i++) {
       var currentEpisode;
       if (i < 10) {
         currentEpisode = currentSeason + "e0" + i
@@ -207,6 +207,8 @@
   const height = window.innerHeight * .25;
 
   function loadGraph(bins, episodeNumber){
+    console.log(episodeNumber);
+    
     if (document.getElementById("scrollToggle").checked){
         const width = barWidth * bins.length;
         const svg = d3.select("#" + episodeNumber);

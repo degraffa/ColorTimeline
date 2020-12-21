@@ -1,0 +1,169 @@
+<html>
+
+<head>
+  <title>Iro • 色</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://d3js.org/d3.v6.min.js"></script>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128235997-2"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-128235997-2');
+  </script>
+</head>
+
+<body>
+
+  <div id="modal">
+    <div id="modalText">
+      Iro • 色
+      </br>
+      <div id="modalTextSmall">
+        Click to begin
+      </div>
+    </div>
+    <div class="footer">
+      <a href="disclaimer.html">This site is for educational purposes only. Click for full disclaimer.</a>
+    </div>
+  </div>
+
+  <center>
+  <div id="iroTitle">
+  Iro • 色
+  </div>
+  Fixed length?
+  <input type="checkbox" id="scrollToggle">
+  Select film:
+  <select id="filmSelector">
+    <option value="rashomon">Rashomon</option>
+    <option value="iwasbornbut">I Was Born, But...</option>
+    <option value="latespring">Late Spring</option>
+    <option value="millenniumactress">Millennium Actress</option>
+    <option value="tampopo">Tampopo</option>
+    <option value="themourningforest">The Mourning Forest</option>
+    <option value="funeralparadeofroses">Funeral Parade of Roses</option>
+    <option value="house">House</option>
+    <option value="spiritedaway">Spirited Away</option>
+    <option value="rickroll">???</option>
+  </select>
+
+  <button onclick="reloadData()">Click to reload</button>
+  </br>
+  </br>
+  <div id="scrollableWindow">
+    <svg></svg>
+  </div>
+  </br>
+  </br>
+  <div id ="source">
+  </div>
+
+  <div class="footer">
+    <a href="https://github.com/rzhou1999/Iro">Questions? Click to visit the GitHub repo.</a>
+  </div>
+  </center>
+
+  <script>
+
+  const jsonPath = "https://randyzhou.com/Iro/backend/json/";
+  var currentFilm;
+
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  if (urlParams.get("film")){
+    document.getElementById("filmSelector").value = urlParams.get("film");
+    currentFilm = urlParams.get("film");
+  }
+
+  async function reloadData(){
+    if (document.getElementById("filmSelector").value)
+      currentFilm = document.getElementById("filmSelector").value;
+    var bins = await d3.json(jsonPath + currentFilm + ".json")
+    loadGraph(bins)
+    document.getElementById("source").innerHTML = ""
+  }
+
+  function rgbArrayToString(arr){
+    return "rgb(" + arr[0] + "," + arr[1] + "," + arr[2] + ")"
+  }
+
+  function updateSource(sourceObj){
+
+    const rgb = sourceObj.color;
+    const sourceColorBrightness = 
+      Math.round(((rgb[0] * 299) +
+        (rgb[1] * 587) +
+        (rgb[2] * 114)) / 1000);
+    const textColor = (sourceColorBrightness > 125) ? 'black' : 'white';
+
+    source = document.getElementById("source")
+    source.innerHTML =
+      "<div id= \"sourceContent\" style=\"background-color:" +
+      rgbArrayToString(sourceObj.color) +
+      "; color:" +
+      textColor +
+      "\";><img src=\"" +
+      sourceObj.file_name +
+      "\" height=\"" +
+      window.innerHeight * .25 +
+      "\"></br>" +
+      rgbArrayToString(sourceObj.color) +
+      " • " +
+      sourceObj.timestamp +
+      "</div>";
+  }
+
+  const barWidth = 10;
+  const height = window.innerHeight * .25;
+
+  function loadGraph(bins){
+    if (document.getElementById("scrollToggle").checked){
+        const width = barWidth * bins.length;
+        const svg = d3.select("svg");
+        svg
+          .attr("width", width)
+          .attr("height", height)
+          .selectAll("rect")
+          .data(bins)
+          .join("rect")
+          .attr("x", (d,i) => i*barWidth)
+          .attr("width", d => barWidth)
+          .attr("y", d => 0)
+          .attr("fill", d => rgbArrayToString(d.color))
+          .on('mouseover', function(d,i){updateSource(d.target.__data__) })
+          .attr("height", d => height);
+    }
+    else {
+      const width = window.innerWidth * .75
+      const svg = d3.select("svg")
+      svg
+        .attr("width", width)
+        .attr("height", height)
+        .selectAll("rect")
+        .data(bins)
+        .join("rect")
+        .attr("x", (d,i) => i*(width/bins.length))
+        .attr("width", d => (width/bins.length))
+        .attr("y", d => 0)
+        .attr("fill", d => rgbArrayToString(d.color))
+        .on('mouseover', function(d,i){updateSource(d.target.__data__) })
+        .attr("height", d => height);
+    }
+  }
+
+  var modal = document.getElementById('modal');
+  modal.onclick = function() {
+      modal.classList.add("fade-out")
+      setTimeout(function(){modal.style.display = "none"}, 990);
+  };
+  reloadData()
+        
+  </script>
+
+</body>
+
+</html>

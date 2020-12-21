@@ -1,0 +1,9 @@
+python .\iro-backend.py s1e2 movies/s1e2.mp4 20 1
+python .\iro-backend.py s1e3 movies/s1e3.mp4 20 1
+python .\iro-backend.py s1e4 movies/s1e4.mp4 20 1
+python .\iro-backend.py s1e5 movies/s1e5.mp4 20 1
+python .\iro-backend.py s1e6 movies/s1e6.mp4 20 1
+python .\iro-backend.py s1e7 movies/s1e7.mp4 20 1
+python .\iro-backend.py s1e8 movies/s1e8.mp4 20 1
+python .\iro-backend.py s1e9 movies/s1e9.mp4 20 1
+python .\iro-backend.py s1e10 movies/s1e10.mp4 20 1

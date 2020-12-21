@@ -148,7 +148,7 @@
 
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
-  if (urlParams.get("film")){
+  if (urlParams.get("film")) {
     document.getElementById("seasonSelector").value = urlParams.get("film");
     currentSeason = urlParams.get("film");
   }
@@ -158,6 +158,23 @@
       currentSeason = document.getElementById("seasonSelector").value;
 
     var seasonNumber = parseInt(currentSeason.charAt(1))
+
+    if (seasonNumber == 7 || seasonNumber == 8) {
+      // set episodes 8, 9, 10 invisible
+      document.getElementById("e08").style.visibility = "hidden";
+      document.getElementById("e09").style.visibility = "hidden";
+      document.getElementById("e10").style.visibility = "hidden";
+      if (seasonNumber == 8) {
+        document.getElementById("e07").style.visibility = "hidden";
+        // set episode 7 invisible
+      }
+    } else {
+      // set all to visible
+      document.getElementById("e06").style.visibility = "visible";
+      document.getElementById("e08").style.visibility = "visible";
+      document.getElementById("e09").style.visibility = "visible";
+      document.getElementById("e10").style.visibility = "visible";
+    }
 
     for (let i = 1; i <= seasonLengths[seasonNumber-1]; i++) {
       var currentEpisode;
@@ -178,7 +195,6 @@
   }
 
   function updateSource(sourceObj){
-
     const rgb = sourceObj.color;
     const sourceColorBrightness = 
       Math.round(((rgb[0] * 299) +

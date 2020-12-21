@@ -167,11 +167,8 @@
         currentEpisode = currentSeason + "e10"
       }
       
-      var episodeString = "e" + (i < 10 ? "0" + i : "10");
-      console.log(episodeString);
-
-      // var bins = await d3.json(jsonPath + currentEpisode + ".json")
-      // loadGraph(bins, i)
+      var bins = await d3.json(jsonPath + currentEpisode + ".json")
+      loadGraph(bins, i)
     }
     document.getElementById("source").innerHTML = ""
   }

@@ -49,6 +49,16 @@
     <option value="s1e8">Season 1 Episode 8</option>
     <option value="s1e9">Season 1 Episode 9</option>
     <option value="s1e10">Season 1 Episode 10</option>
+    <option value="s3e1">Season 3 Episode 1</option>
+    <option value="s3e2">Season 3 Episode 2</option>
+    <option value="s3e3">Season 3 Episode 3</option>
+    <option value="s3e4">Season 3 Episode 4</option>
+    <option value="s3e5">Season 3 Episode 5</option>
+    <option value="s3e6">Season 3 Episode 6</option>
+    <option value="s3e7">Season 3 Episode 7</option>
+    <option value="s3e8">Season 3 Episode 8</option>
+    <option value="s3e9">Season 3 Episode 9</option>
+    <option value="s3e10">Season 3 Episode 10</option>
     <option value="rickroll">Season 9</option>
   </select>
 
@@ -58,9 +68,11 @@
   <div id="scrollableWindow">
     <svg></svg>
   </div>
+  <br />
   <div id="scrollableWindow">
     <svg></svg>
   </div>
+  <br />
   </br>
   </br>
   <div id ="source">
@@ -127,7 +139,7 @@
   function loadGraph(bins){
     if (document.getElementById("scrollToggle").checked){
         const width = barWidth * bins.length;
-        const svg = d3.selectAll("svg");
+        const svg = d3.select("svg");
         svg
           .attr("width", width)
           .attr("height", height)
@@ -143,7 +155,7 @@
     }
     else {
       const width = window.innerWidth * .75
-      const svg = d3.select("svg")
+      const svg = d3.selectAll("svg")
       svg
         .attr("width", width)
         .attr("height", height)

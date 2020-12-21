@@ -27,8 +27,8 @@ body {
 .footer {
     /* bottom: 0; */
     font-size: 1.5vmin;  
-    /* position: fixed; */
-    left: 50%;
+    position: fixed;
+    /* left: 50%; */
     transform: translate(-50%, -50%);
     margin: 0 auto;
 }

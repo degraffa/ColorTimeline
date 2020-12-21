@@ -207,8 +207,6 @@
   const height = window.innerHeight * .25;
 
   function loadGraph(bins, episodeNumber){
-    console.log(episodeNumber);
-
     if (document.getElementById("scrollToggle").checked){
         const width = barWidth * bins.length;
         const svg = d3.select("#" + episodeNumber);
@@ -243,11 +241,11 @@
     }
   }
 
-  var modal = document.getElementById('modal');
-  modal.onclick = function() {
-      modal.classList.add("fade-out")
-      setTimeout(function(){modal.style.display = "none"}, 990);
-  };
+  // var modal = document.getElementById('modal');
+  // modal.onclick = function() {
+  //     modal.classList.add("fade-out")
+  //     setTimeout(function(){modal.style.display = "none"}, 990);
+  // };
   reloadData()
         
   </script>

@@ -38,46 +38,15 @@
   Fixed length?
   <input type="checkbox" id="scrollToggle">
   Select Season:
-  <select id="filmSelector">
-    <option value="s1e1">Season 1 Episode 1</option>
-    <option value="s1e2">Season 1 Episode 2</option>
-    <option value="s1e3">Season 1 Episode 3</option>
-    <option value="s1e4">Season 1 Episode 4</option>
-    <option value="s1e5">Season 1 Episode 5</option>
-    <option value="s1e6">Season 1 Episode 6</option>
-    <option value="s1e7">Season 1 Episode 7</option>
-    <option value="s1e8">Season 1 Episode 8</option>
-    <option value="s1e9">Season 1 Episode 9</option>
-    <option value="s1e10">Season 1 Episode 10</option>
-    <option value="s2e01">Season 2 Episode 1</option>
-    <option value="s2e02">Season 2 Episode 2</option>
-    <option value="s2e03">Season 2 Episode 3</option>
-    <option value="s2e04">Season 2 Episode 4</option>
-    <option value="s2e05">Season 2 Episode 5</option>
-    <option value="s2e06">Season 2 Episode 6</option>
-    <option value="s2e07">Season 2 Episode 7</option>
-    <option value="s2e08">Season 2 Episode 8</option>
-    <option value="s2e09">Season 2 Episode 9</option>
-    <option value="s2e10">Season 2 Episode 10</option>
-    <option value="s3e01">Season 3 Episode 1</option>
-    <option value="s3e02">Season 3 Episode 2</option>
-    <option value="s3e03">Season 3 Episode 3</option>
-    <option value="s3e04">Season 3 Episode 4</option>
-    <option value="s3e05">Season 3 Episode 5</option>
-    <option value="s3e06">Season 3 Episode 6</option>
-    <option value="s3e07">Season 3 Episode 7</option>
-    <option value="s3e08">Season 3 Episode 8</option>
-    <option value="s3e09">Season 3 Episode 9</option>
-    <option value="s4e01">Season 4 Episode 1</option>
-    <option value="s4e02">Season 4 Episode 2</option>
-    <option value="s4e03">Season 4 Episode 3</option>
-    <option value="s4e04">Season 4 Episode 4</option>
-    <option value="s4e05">Season 4 Episode 5</option>
-    <option value="s4e06">Season 4 Episode 6</option>
-    <option value="s4e07">Season 4 Episode 7</option>
-    <option value="s4e08">Season 4 Episode 8</option>
-    <option value="s4e09">Season 4 Episode 9</option>
-    <option value="s4e10">Season 4 Episode 10</option>
+  <select id="seasonSelector">
+    <option value="s1">Season 1</option>
+    <option value="s2">Season 2</option>
+    <option value="s3">Season 3</option>
+    <option value="s4">Season 4</option>
+    <option value="s5">Season 5</option>
+    <option value="s6">Season 6</option>
+    <option value="s7">Season 7</option>
+    <option value="s8">Season 8</option>
     <option value="rickroll">Season 9</option>
   </select>
 
@@ -85,12 +54,18 @@
   </br>
   </br>
   <div id="scrollableWindow">
-    <svg></svg>
+    <svg id="e01"></svg>
+    <svg id="e02"></svg>
+    <svg id="e03"></svg>
+    <svg id="e04"></svg>
+    <svg id="e05"></svg>
+    <svg id="e06"></svg>
+    <svg id="e07"></svg>
+    <svg id="e08"></svg>
+    <svg id="e09"></svg>
+    <svg id="e10"></svg>
   </div>
   <br />
-  <div id="scrollableWindow">
-    <svg></svg>
-  </div>
   <br />
   </br>
   </br>
@@ -105,20 +80,33 @@
   <script>
 
   const jsonPath = "backend/json/";
-  var currentFilm;
+  var currentSeason;
+  const seasonLengths = [10, 10, 10, 10, 10, 10, 7, 6]
 
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
   if (urlParams.get("film")){
-    document.getElementById("filmSelector").value = urlParams.get("film");
-    currentFilm = urlParams.get("film");
+    document.getElementById("seasonSelector").value = urlParams.get("film");
+    currentSeason = urlParams.get("film");
   }
 
   async function reloadData(){
-    if (document.getElementById("filmSelector").value)
-      currentFilm = document.getElementById("filmSelector").value;
-    var bins = await d3.json(jsonPath + currentFilm + ".json")
-    loadGraph(bins)
+    if (document.getElementById("seasonSelector").value)
+      currentSeason = document.getElementById("seasonSelector").value;
+
+    var seasonNumber = parseInt(currentSeason)
+    var bins = await d3.json(jsonPath + currentSeason + ".json")
+    for (let i = 1; i <= seasonLengths[i]; i++) {
+      var currentEpisode;
+      if (i < 10) {
+        currentEpisode = currentSeason + "e0" + i
+      } else {
+        currentEpisode = currentSeason + "e10"
+      }
+
+      var bins = await d3.json(jsonPath + currentEpisode + ".json")
+      loadGraph(bins, i)
+    }
     document.getElementById("source").innerHTML = ""
   }
 
@@ -155,10 +143,10 @@
   const barWidth = 10;
   const height = window.innerHeight * .25;
 
-  function loadGraph(bins){
+  function loadGraph(bins, episodeNumber){
     if (document.getElementById("scrollToggle").checked){
         const width = barWidth * bins.length;
-        const svg = d3.select("svg");
+        const svg = d3.select("#" + episodeNumber);
         svg
           .attr("width", width)
           .attr("height", height)

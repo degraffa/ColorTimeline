@@ -6,7 +6,7 @@ Iro is a visualization project developed for the ASIAN 2252 course at Cornell un
 
 ## Webpage Usage
 
-Iro is deployed and viewable online at https://randyzhou.com/Iro/. It is hosted on Github Pages (who we are forever indebted to for free web hosting).
+Iro is deployed and viewable online at https://degraffa.github.io/GOTColor/. It is hosted on Github Pages (who we are forever indebted to for free web hosting).
 
 Scrolling over a color bar will also load the corresponding frame, its dominant color's rgb values, as well as its timestamp.
 
